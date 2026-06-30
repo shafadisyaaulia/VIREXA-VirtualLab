@@ -1355,6 +1355,9 @@ video {
 .animate-\[scaleIn_0\.4s_ease-out\]{
   animation: scaleIn 0.4s ease-out;
 }
+.animate-\[scaleIn_0\.2s_ease-out\]{
+  animation: scaleIn 0.2s ease-out;
+}
 .cursor-pointer{
   cursor: pointer;
 }

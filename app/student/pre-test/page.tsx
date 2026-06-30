@@ -13,11 +13,23 @@ import {
   FlaskConical, 
   Award,
   ArrowLeft,
-  ChevronRight
+  ChevronRight,
+  Lock
 } from "lucide-react";
 
+// Struktur Tipe Data Soal dengan properti opsional imageSrc untuk menghindari error kompilasi Vercel
+type Soal = {
+  id: number;
+  pertanyaan: string;
+  opsi: string[];
+  jawabanBenar: number;
+  penjelasan: string;
+  fallbackEmoji: string;
+  imageSrc?: string; // Tanda tanya (?) berarti opsional
+};
+
 // Struktur Soal Pre-Test Interaktif Asam & Basa SMP dengan Dukungan Gambar Selektif
-const DAFTAR_SOAL = [
+const DAFTAR_SOAL: Soal[] = [
   {
     id: 1,
     pertanyaan: "Larutan yang memiliki derajat keasaman (pH) di bawah angka 7.0 secara ilmiah diklasifikasikan sebagai zat...",
@@ -32,8 +44,9 @@ const DAFTAR_SOAL = [
     pertanyaan: "Bahan harian manakah di bawah ini yang dikenal memiliki sifat asam kuat sehingga berbahaya bagi email gigi jika dikonsumsi berlebihan?",
     opsi: ["Susu Sapi", "Air Murni", "Minuman Cola", "Air Kelapa"],
     jawabanBenar: 2, // Minuman Cola
-    penjelasan: "Minuman cola mengandung Asam Fosfat (H3PO4) dengan kadar pH sangat rendah (sekitar 2.5).",
+    penjelasan: "Minuman cola mengandung Asam Fosfat (H₃PO₄) dengan kadar pH sangat rendah (sekitar 2.5).",
     // Menggunakan gambar Cola asli dari Unsplash berkualitas tinggi
+    imageSrc: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=800&q=80",
     fallbackEmoji: "🥤"
   },
   {
@@ -50,7 +63,7 @@ const DAFTAR_SOAL = [
     pertanyaan: "Zat kimia pengawet berbahaya seperti Boraks yang memiliki pH sekitar 9.5 diklasifikasikan ke dalam kelompok...",
     opsi: ["Asam Kuat", "Basa", "Netral", "Asam Lemah"],
     jawabanBenar: 1, // Basa
-    penjelasan: "Zat dengan pH di atas 7 hingga 14 digonlongkan sebagai zat Basa.",
+    penjelasan: "Zat dengan pH di atas 7 hingga 14 digolongkan sebagai zat Basa.",
     fallbackEmoji: "📦"
     // Tanpa imageSrc
   }
@@ -112,7 +125,7 @@ export default function PreTestPage() {
       }
     });
 
-    const skor = Math.round((jumlahBenar / DAFTAR_SOAL.length) * 100);
+    const skor = Math.round((dashBenar => jumlahBenar / DAFTAR_SOAL.length) * 100);
     setSkorAkhir(skor);
 
     try {
@@ -199,7 +212,7 @@ export default function PreTestPage() {
               <span className="text-xs tracking-wider">2. Pre-Test</span>
             </div>
 
-            {/* 3. Materials (Terbuka) */}
+            {/* 3. Materials (Kunci Terbuka / Pengisian Kondisional) */}
             <button 
               onClick={() => router.push("/student/materials")}
               className="w-full text-slate-600 hover:bg-slate-50 rounded-lg px-4 py-3 flex items-center gap-3 transition-all text-left"
@@ -208,7 +221,7 @@ export default function PreTestPage() {
               <span className="text-xs tracking-wider font-semibold">3. Materials</span>
             </button>
 
-            {/* 4. Virtual Lab (Terbuka) */}
+            {/* 4. Virtual Lab (Terbuka setelah materi) */}
             <button 
               onClick={() => router.push("/student/virtual-lab")}
               className="w-full text-slate-600 hover:bg-slate-50 rounded-lg px-4 py-3 flex items-center gap-3 transition-all text-left"
@@ -217,7 +230,7 @@ export default function PreTestPage() {
               <span className="text-xs tracking-wider font-semibold">4. Virtual Lab</span>
             </button>
 
-            {/* 5. Post-Test (Terbuka) */}
+            {/* 5. Post-Test */}
             <button 
               onClick={() => router.push("/student/post-test")}
               className="w-full text-slate-600 hover:bg-slate-50 rounded-lg px-4 py-3 flex items-center gap-3 transition-all text-left"
@@ -381,7 +394,7 @@ export default function PreTestPage() {
                       onClick={() => handlePilihOpsi(currentSoal.id, oIdx)}
                       className={`flex items-center justify-between p-5 bg-white border-2 rounded-2xl transition-all duration-200 text-left group ${
                         isSelected 
-                          ? "border-indigo-600 bg-indigo-50/50 shadow-sm"
+                          ? "border-indigo-600 bg-indigo-50/50 shadow-sm animate-[scaleIn_0.2s_ease-out]"
                           : "border-transparent border-slate-100 hover:border-slate-200 hover:-translate-y-1 shadow-sm"
                       }`}
                     >
