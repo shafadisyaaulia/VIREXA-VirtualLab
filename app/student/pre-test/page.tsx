@@ -125,7 +125,8 @@ export default function PreTestPage() {
       }
     });
 
-    const skor = Math.round((dashBenar => jumlahBenar / DAFTAR_SOAL.length) * 100);
+    // MEMPERBAIKI ERROR TYPE: Menghapus sisa-sisa fungsi panah ("dashBenar => ...") agar murni berupa perhitungan aritmatika numerik yang valid
+    const skor = Math.round((jumlahBenar / DAFTAR_SOAL.length) * 100);
     setSkorAkhir(skor);
 
     try {
@@ -375,7 +376,7 @@ export default function PreTestPage() {
                       <span className="text-xs font-bold uppercase tracking-wider">Fokus Sesi</span>
                     </div>
                     <p className="text-xs font-medium text-emerald-800 leading-relaxed">
-                      Fokus pada identifikasi cairan, konsep pH, dan pemahaman biologis organ.
+                      Fokus pada idenfikasi cairan, konsep pH, dan pemahaman biologis organ.
                     </p>
                   </div>
                 </div>
