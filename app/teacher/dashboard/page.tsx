@@ -1,4 +1,4 @@
-"use main";
+"use client";
 
 import React, { useState } from "react";
 import { 
@@ -10,7 +10,7 @@ import {
   SlidersHorizontal, 
   ArrowUpRight,
   UserCheck
-} from "lucide-on-react";
+} from "lucide-react";
 
 // Data simulasi siswa biar dashboard-nya langsung kelihatan isinya
 const initialStudentsData = [
